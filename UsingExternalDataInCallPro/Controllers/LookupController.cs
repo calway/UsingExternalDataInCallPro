@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using UsingExternalDataInCallPro.Models;
 using Newtonsoft.Json;
@@ -23,6 +18,29 @@ namespace UsingExternalDataInCallPro.Controllers
             return View(await db.Lookup.ToListAsync());
         }
 
+        // GET: Lookup/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Lookup/Create
+        // We should use a view model that only contains the properties we which to bind
+        // for simplicity of the demo I am using the EF class directly
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(Lookup lookupViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Lookup.Add(lookupViewModel);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            return View(lookupViewModel);
+        }
+
         // GET: Lookup/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -35,30 +53,6 @@ namespace UsingExternalDataInCallPro.Controllers
             {
                 return HttpNotFound();
             }
-            return View(lookupViewModel);
-        }
-
-        // GET: Lookup/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Lookup/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        // Removed for simplicity: [Bind(Include = "ID,Name,Reserved")] and I hate using strings for this
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Lookup lookupViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Lookup.Add(lookupViewModel);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
             return View(lookupViewModel);
         }
 
@@ -78,9 +72,8 @@ namespace UsingExternalDataInCallPro.Controllers
         }
 
         // POST: Lookup/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        // Removed for simplicity: [Bind(Include = "ID,Name,Reserved")] and I hate using strings for this
+        // We should use a view model that only contains the properties we which to bind
+        // for simplicity of the demo I am using the EF class directly
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Lookup lookupViewModel)

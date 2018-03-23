@@ -8,12 +8,15 @@
     <script src="LookupApp.js"></script>
 </head>
 <body ng-controller="LookupController">
-    <input type="text" ng-model="clentryid" placeholder="clentryid moet zijn gezet bij reserveren"/>
+    <h1>Demo lookup dropdown list voorbeeld</h1>
+    <p>Dit is een voorbeeld hoe je een keuzelijst in een belscript in CallPro kunt weergeven met angular en een controller.
+    De demo heeft ook eenvoudige CRUD pagina's voor het onderhoud van de lookup gegevens.</p>
     <select ng-model="selectedid">
         <option ng-repeat="item in lookup" value="{{item.ID}}" ng-disabled={{item.Reserved}}>{{item.FirstName}} {{item.LastName}}</option>
     </select>
     <button ng-click="reserve()">Reserveer</button>
-    <input type="text" ng-model="selectedid" placeholder="selectedid zetten voor vrijgeven"/>
+    <input type="text" ng-model="clentryid" placeholder="clentryid moet zijn gezet bij reserveren" />
+    <input type="text" ng-model="selectedid" placeholder="selectedid zetten voor vrijgeven" />
     <button ng-click="unreserve()">Vrijgeven</button>
 </body>
 </html>

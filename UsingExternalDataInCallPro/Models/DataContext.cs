@@ -8,9 +8,9 @@ namespace UsingExternalDataInCallPro.Models
         public DataContext() : base("name=DataContext")
         {
             // For production we disable EF migrations so the SQL Database dictates the model
-            //Database.SetInitializer<DataContext>(null);
+            Database.SetInitializer<DataContext>(null);
             // During development we want to have the database created with our changed model and start out with a clean database
-            Database.SetInitializer<DataContext>(new DropCreateDatabaseAlways<DataContext>());
+            //Database.SetInitializer<DataContext>(new DropCreateDatabaseAlways<DataContext>());
             //Database.SetInitializer<DataContext>(new CreateDatabaseIfNotExists<DataContext>());
             //Database.SetInitializer<DataContext>(new DropCreateDatabaseIfModelChanges<DataContext>());
 
